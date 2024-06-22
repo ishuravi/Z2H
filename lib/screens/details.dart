@@ -47,7 +47,7 @@ class _DetailsState extends State<Details> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("User Information"),
+        title: Text("Details page"),
       ),
       body: userInfo.isEmpty
           ? Center(child: CircularProgressIndicator())
