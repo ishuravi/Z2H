@@ -60,7 +60,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                   Text(
-                    'Original Price: ₹ ${widget.price.toString}', // Formatting double to two decimal places
+                    'Original price: ₹ ${widget.price.toString()}', // Formatting double to two decimal places
                     style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                   Text(
@@ -93,7 +93,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                         icon: const Icon(Icons.add),
                         onPressed: () {
                           setState(() {
-                            quantity++;
+                            quantity+1;
                           });
                         },
                       ),
@@ -178,7 +178,9 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   Future<http.Response> _callPaymentAPI() {
     final tokenProvider = Provider.of<TokenProvider>(context, listen: false);
     final token = tokenProvider.token;
+    final uid = tokenProvider.uid;
     print("Product details page token:$token");
+    print("Product details page uid:$uid");
     final url = Uri.parse('http://154.61.75.25:8000/api/z2h/app/update_payment/');
     final headers = {
       'Content-Type': 'application/json',
@@ -188,7 +190,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
       'payment_mode': 'Phone pe',
       'payment_status': 'success',
       'payment_reference': 'GHJK24581245',
-      'product': 'b3d48c54-575c-492c-8804-4d6ee7671606',
+      'product': uid,
     });
 
     return http.post(url, headers: headers, body: body);

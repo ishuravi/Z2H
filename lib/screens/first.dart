@@ -61,14 +61,20 @@ class _FirstPageState extends State<FirstPage> {
     );
 
     if (response.statusCode == 200) {
+      final responseBody = json.decode(response.body);
+      final uid = responseBody[0]['uid'];
+      tokenProvider.setUid(uid);
+
+      print("product uid: $uid");
       setState(() {
-        products = json.decode(response.body);
+        products = responseBody;
         isLoading = false;
       });
     } else {
       throw Exception('Failed to load products');
     }
   }
+
 
 
   void playPauseVideo(VideoPlayerController controller) {
