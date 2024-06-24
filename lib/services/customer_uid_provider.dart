@@ -23,7 +23,7 @@ class CustomerUIDProvider with ChangeNotifier {
     final token = tokenProvider.token;
     print('TokenFirstpage: $token');
     final response = await http.get(
-      Uri.parse('http://154.61.75.25:8000/api/z2h/user/info/?accessed_from=mobile'),
+      Uri.parse('https://z2h.in:8000/api/z2h/user/info/?accessed_from=mobile'),
       headers: {
         'Authorization': 'Token $token',
       },

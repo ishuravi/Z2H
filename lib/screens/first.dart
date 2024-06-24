@@ -52,7 +52,7 @@ class _FirstPageState extends State<FirstPage> {
     final token = tokenProvider.token;
     print('TokenFirstpage: $token');
 
-    const url = 'http://154.61.75.25:8000/api/z2h/app/products_list/';
+    const url = 'https://z2h.in:8000/api/z2h/app/products_list/';
     final response = await http.get(
       Uri.parse(url),
       headers: {

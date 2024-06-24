@@ -77,7 +77,7 @@ class _NewLoginState extends State<NewLogin> {
 
     http.Response response = await http.patch(
       Uri.parse(
-          'http://154.61.75.25:8000/api/z2h/user/update_password/'),
+          'https://z2h.in:8000/api/z2h/user/update_password/'),
       headers: headers,
       body: json.encode(requestBody),
     );

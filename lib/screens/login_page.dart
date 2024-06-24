@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zero2hero/screens/signup.dart';
+import 'package:zero2hero/screens/signupDemo.dart';
 
 import '../token_provider.dart';
 import 'homepage.dart';
@@ -85,7 +86,7 @@ class LoginPageState extends State<LoginPage> {
     );
   }
   Future<void> _forgotPassword(String mobileNumber, String emailAddress) async {
-    final String apiUrl = 'http://154.61.75.25:8000/api/z2h/user/forgot_password/';
+    final String apiUrl = 'https://z2h.in:8000/api/z2h/user/forgot_password/';
     final Uri uri = Uri.parse('$apiUrl?email_address=$emailAddress&mobile_number=$mobileNumber');
 
     final response = await http.get(uri);
@@ -118,7 +119,7 @@ class LoginPageState extends State<LoginPage> {
 
 
   Future<void> _login() async {
-    const String apiUrl = 'http://154.61.75.25:8000/api/z2h/user/login/';
+    const String apiUrl = 'https://z2h.in:8000/api/z2h/user/login/';
     final response = await http.post(Uri.parse(apiUrl), body: {
       'mobile_number': _mobileController.text,
       'password': _passwordController.text,

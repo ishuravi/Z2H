@@ -19,12 +19,12 @@ class _SettingsState extends State<Settings> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 10),
+            padding: const EdgeInsets.only(left: 0),
             child: Container(
               decoration: const BoxDecoration(
                 color: Color(0xFFDCFFFF),
                 borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(250.0),
+                  bottomLeft: Radius.circular(0.0),
                 ),
               ),
               height: 250.0,

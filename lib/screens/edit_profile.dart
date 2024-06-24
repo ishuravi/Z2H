@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-import 'package:zero2hero/screens/profile_demo.dart';
+import 'package:zero2hero/screens/profile_demo1.dart';
 import '../token_provider.dart';
  // Import your profile page here
 
@@ -35,7 +35,7 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   Future<UserData> fetchUserData() async {
-    const String apiUrl = 'http://154.61.75.25:8000/api/z2h/user/update_register_user/';
+    const String apiUrl = 'https://z2h.in:8000/api/z2h/user/update_register_user/';
     final tokenProvider = Provider.of<TokenProvider>(context, listen: false);
     final token = tokenProvider.token;
 
@@ -70,7 +70,7 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   Future<void> updateUserData() async {
-    const String apiUrl = 'http://154.61.75.25:8000/api/z2h/user/update_register_user/';
+    const String apiUrl = 'https://z2h.in:8000/api/z2h/user/update_register_user/';
     final tokenProvider = Provider.of<TokenProvider>(context, listen: false);
     final token = tokenProvider.token;
 
@@ -105,7 +105,7 @@ class _EditProfileState extends State<EditProfile> {
       // Navigate to the profile page
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => ProfileDemo()),
+        MaterialPageRoute(builder: (context) => ProfileDemo1()),
       );
     } else {
       // Handle error

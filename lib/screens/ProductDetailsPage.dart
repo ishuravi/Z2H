@@ -181,7 +181,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
     final uid = tokenProvider.uid;
     print("Product details page token:$token");
     print("Product details page uid:$uid");
-    final url = Uri.parse('http://154.61.75.25:8000/api/z2h/app/update_payment/');
+    final url = Uri.parse('https://z2h.in:8000/api/z2h/app/update_payment/');
     final headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Token $token',

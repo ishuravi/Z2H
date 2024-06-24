@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+import 'package:zero2hero/screens/PaymentsPage.dart';
 import 'package:zero2hero/screens/details.dart';
 import 'package:zero2hero/screens/profile_demo1.dart';
 import 'package:zero2hero/screens/settings.dart';
 import 'dart:convert';
 
+import '../token_provider.dart';
 import 'login_page.dart';
 
 class DrawerPage extends StatefulWidget {
@@ -17,7 +20,7 @@ class DrawerPage extends StatefulWidget {
 }
 
 class _DrawerPageState extends State<DrawerPage> {
-  late String profilePhotoPath;
+  String? profilePhotoPath;
 
   @override
   void initState() {
@@ -26,9 +29,11 @@ class _DrawerPageState extends State<DrawerPage> {
   }
 
   Future<void> fetchUserInfo() async {
+    final tokenProvider = Provider.of<TokenProvider>(context, listen: false);
+    final token = tokenProvider.token;
     final url =
-        'http://103.61.224.178:8000/api/z2h/user/info/?accessed_from=mobile';
-    final token = '50b6f261ea2120d45936a4d8a24b6620d7496c12';
+        'https://z2h.in:8000/api/z2h/user/info/?accessed_from=mobile';
+
     final response = await http.get(Uri.parse(url), headers: {
       'Authorization': 'Token $token',
     });
@@ -69,10 +74,10 @@ class _DrawerPageState extends State<DrawerPage> {
                     child: CircleAvatar(
                       radius: 90,
                       backgroundColor: Colors.white,
-                      backgroundImage: profilePhotoPath != null ? NetworkImage(profilePhotoPath) : null, // Placeholder image
+                      backgroundImage: profilePhotoPath != null ? NetworkImage(profilePhotoPath!) : null, // Placeholder image
                       child: profilePhotoPath == null
                           ? Icon(Icons.person, size: 40)
-                          : null, // Show icon only if image fails to load
+                          : null,
                     ),
                   ),
                 ),
@@ -119,6 +124,10 @@ class _DrawerPageState extends State<DrawerPage> {
               leading: const Icon(Icons.history),
               title: const Text('Payment History'),
               onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) =>PaymentHistory()),
+                );
                 // onTabChanged(1);
               },
             ),

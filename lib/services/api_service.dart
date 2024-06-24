@@ -6,7 +6,7 @@ import '../token_provider.dart';
 
 
 class ApiService {
-  static const String apiUrl = 'http://154.61.75.25:8000/api/z2h/user/info/?accessed_from=mobile';
+  static const String apiUrl = 'https://z2h.in:8000/api/z2h/user/info/?accessed_from=mobile';
 
   static Future<Map<String, dynamic>> fetchUserInfo(BuildContext context) async {
     final token = Provider.of<TokenProvider>(context, listen: false).token;

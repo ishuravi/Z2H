@@ -11,17 +11,17 @@ import 'login_page.dart';
 import 'package:intl/intl.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 
-class SignUpPageDemo extends StatefulWidget {
+class SignUpPageDemo1 extends StatefulWidget {
 
 
-  const SignUpPageDemo({Key? key}) : super(key: key);
+  const SignUpPageDemo1({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
   _SignUpPageState createState() => _SignUpPageState();
 }
 
-class _SignUpPageState extends State<SignUpPageDemo> {
+class _SignUpPageState extends State<SignUpPageDemo1> {
 
   final _formKey = GlobalKey<FormState>();
   bool _isDialogShown = false;
@@ -110,12 +110,12 @@ class _SignUpPageState extends State<SignUpPageDemo> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: 20.0),
-                Container(
-                  width: 150, // Adjust the width as needed
-                  height: 150,
-                  alignment: Alignment.center,
-                  child: Image.asset('assets/icons/client_logo.png'), // Replace with your logo image path
-                ),
+                // Container(
+                //   width: 150, // Adjust the width as needed
+                //   height: 150,
+                //   alignment: Alignment.center,
+                //   child: Image.asset('assets/icons/client_logo.png'), // Replace with your logo image path
+                // ),
                 CustomTextField(
                   label: 'Refer ID',
                   controller: referredByController,
@@ -712,7 +712,7 @@ class _SignUpPageState extends State<SignUpPageDemo> {
 
 class APIService {
   static Future<List<String>> fetchStates() async {
-    
+
     final response = await http
         .get(Uri.parse('https://z2h.in:8000/api/z2h/utils/state/'));
     if (response.statusCode == 200) {

@@ -19,6 +19,12 @@ class ProfileDemo1 extends StatefulWidget {
 
 class _ProfileDemoState extends State<ProfileDemo1> {
   File? _image;
+  void _reloadProfilePhoto() {
+    setState(() {
+      // Set _image to null to force reload from profilePhotoPath
+      _image = null;
+    });
+  }
 
   @override
   void initState() {
@@ -81,7 +87,7 @@ class _ProfileDemoState extends State<ProfileDemo1> {
             TextButton(
               child: Text('Copy'),
               onPressed: () {
-                Clipboard.setData(ClipboardData(text: userInfo['user_customer_uid'] ?? ''));
+                Clipboard.setData(ClipboardData(text: userInfo['user_customer_number'] ?? ''));
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text('Referral ID copied to clipboard')),
                 );
@@ -112,7 +118,7 @@ class _ProfileDemoState extends State<ProfileDemo1> {
 
     final request = http.MultipartRequest(
       'POST',
-      Uri.parse('http://154.61.75.25:8000/api/z2h/utils/image_upload/'),
+      Uri.parse('https://z2h.in:8000/api/z2h/utils/image_upload/'),
     );
     request.headers['Authorization'] = 'Token $token';
     request.fields['upload_type'] = 'profile_image';
@@ -142,7 +148,7 @@ class _ProfileDemoState extends State<ProfileDemo1> {
     final token = tokenProvider.token;
 
     final response = await http.post(
-      Uri.parse('http://154.61.75.25:8000/api/z2h/user/update_register_user/'),
+      Uri.parse('https://z2h.in:8000/api/z2h/user/update_register_user/'),
       headers: {
         'Authorization': 'Token $token',
         'Content-Type': 'application/json',
@@ -290,7 +296,7 @@ class _ProfileDemoState extends State<ProfileDemo1> {
                         ],
                         child: CircleAvatar(
                           radius: 25,
-                          backgroundColor: Colors.red,
+                          backgroundColor: Colors.black,
                           child: Icon(
                             Icons.more_horiz,
                             size: 25,

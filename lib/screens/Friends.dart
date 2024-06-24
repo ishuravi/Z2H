@@ -26,7 +26,7 @@ class _FriendsState extends State<Friends> {
     final customerUid = userProvider.userInfo['user_customer_uid'] ?? '';
 
     final response = await http.get(
-      Uri.parse('http://154.61.75.25:8000/api/z2h/user/customer/customer_details/?customer_uid=$customerUid'),
+      Uri.parse('https://z2h.in:8000/api/z2h/user/customer/customer_details/?customer_uid=$customerUid'),
       headers: {
         'Authorization': 'Token $token',
       },

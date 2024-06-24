@@ -14,7 +14,7 @@ class Details extends StatefulWidget {
 }
 
 class _DetailsState extends State<Details> {
-  final String apiUrl = 'http://154.61.75.25:8000/api/z2h/user/info/?accessed_from=mobile';
+  final String apiUrl = 'https://z2h.in:8000/api/z2h/user/info/?accessed_from=mobile';
 
   @override
   void initState() {
