@@ -12,8 +12,6 @@ import 'package:intl/intl.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 
 class SignUpPageDemo extends StatefulWidget {
-
-
   const SignUpPageDemo({Key? key}) : super(key: key);
 
   @override
@@ -22,7 +20,6 @@ class SignUpPageDemo extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPageDemo> {
-
   final _formKey = GlobalKey<FormState>();
   bool _isDialogShown = false;
   List<String> _states = [];
@@ -44,13 +41,12 @@ class _SignUpPageState extends State<SignUpPageDemo> {
   TextEditingController nameController = TextEditingController();
   TextEditingController nomineeNameController = TextEditingController();
   TextEditingController emailidController = TextEditingController();
-
   TextEditingController aadharController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController pinCodeController = TextEditingController();
   TextEditingController cityController = TextEditingController();
-  TextEditingController townController =TextEditingController();
+  TextEditingController townController = TextEditingController();
   TextEditingController bankNameController = TextEditingController();
   TextEditingController bankNameAsInController = TextEditingController();
   TextEditingController ifscController = TextEditingController();
@@ -62,7 +58,6 @@ class _SignUpPageState extends State<SignUpPageDemo> {
 
   @override
   void initState() {
-
     super.initState();
     _fetchStates();
     _isDialogShown = false;
@@ -100,11 +95,11 @@ class _SignUpPageState extends State<SignUpPageDemo> {
       _showReferrerPopup(referredByController.text);
     });
     return Scaffold(
-
       body: Padding(
         padding: const EdgeInsets.fromLTRB(20, 10, 20, 40),
         child: SingleChildScrollView(
-          child: Form( // Wrap with Form widget
+          child: Form(
+            // Wrap with Form widget
             key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -114,7 +109,8 @@ class _SignUpPageState extends State<SignUpPageDemo> {
                   width: 150, // Adjust the width as needed
                   height: 150,
                   alignment: Alignment.center,
-                  child: Image.asset('assets/icons/client_logo.png'), // Replace with your logo image path
+                  child: Image.asset(
+                      'assets/icons/client_logo.png'), // Replace with your logo image path
                 ),
                 CustomTextField(
                   label: 'Refer ID',
@@ -130,10 +126,6 @@ class _SignUpPageState extends State<SignUpPageDemo> {
                   },
                 ),
                 const SizedBox(height: 10.0),
-
-
-
-
                 CustomTextField(
                   label: 'Name',
                   controller: nameController,
@@ -142,7 +134,8 @@ class _SignUpPageState extends State<SignUpPageDemo> {
                       return 'Please enter your name';
                     } else if (RegExp(r'[0-9]').hasMatch(value)) {
                       return 'Please enter the text only';
-                    } else if (RegExp(r'[!@#%^&*(),.?":{}|<>]').hasMatch(value)) {
+                    } else if (RegExp(r'[!@#%^&*(),.?":{}|<>]')
+                        .hasMatch(value)) {
                       return 'Name cannot contain special characters';
                     }
                     return null;
@@ -157,7 +150,8 @@ class _SignUpPageState extends State<SignUpPageDemo> {
                       return 'Please enter your Nominee Name';
                     } else if (RegExp(r'[0-9]').hasMatch(value)) {
                       return 'Please enter the text only';
-                    } else if (RegExp(r'[!@#%^&*(),.?":{}|<>]').hasMatch(value)) {
+                    } else if (RegExp(r'[!@#%^&*(),.?":{}|<>]')
+                        .hasMatch(value)) {
                       return 'Name cannot contain special characters';
                     }
                     return null;
@@ -170,13 +164,13 @@ class _SignUpPageState extends State<SignUpPageDemo> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your Email ID'; // Validation error message
-                    }else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+                    } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                        .hasMatch(value)) {
                       return 'Please enter a valid Email ID';
                     }
                     return null; // Return null if validation passes
                   },
                 ),
-
                 const SizedBox(height: 10.0),
                 TextFormField(
                   onTap: () => _selectDate(context),
@@ -197,11 +191,9 @@ class _SignUpPageState extends State<SignUpPageDemo> {
                 CustomDropdownField(
                   label: 'Marital Status',
                   options: maritalStatusOptions,
-
                   onChanged: (value) {
                     setState(() {
                       _selectedMaritalStatus = value;
-
                     });
                   },
                   validator: (value) {
@@ -234,7 +226,7 @@ class _SignUpPageState extends State<SignUpPageDemo> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your Aadhar Number'; // Validation error message
-                    }else if (!RegExp(r'^\d{12}$').hasMatch(value)){
+                    } else if (!RegExp(r'^\d{12}$').hasMatch(value)) {
                       return 'Please enter a valid Aadhar Number';
                     }
                     return null; // Return null if validation passes
@@ -244,11 +236,10 @@ class _SignUpPageState extends State<SignUpPageDemo> {
                 CustomTextField(
                   label: 'Mobile Number',
                   controller: mobileController,
-
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your Mobile number'; // Validation error message
-                    }else if (!RegExp(r'^[0-9]{10}$').hasMatch(value)) {
+                    } else if (!RegExp(r'^[0-9]{10}$').hasMatch(value)) {
                       return 'Please enter a valid 10-digit Mobile number';
                     }
                     return null; // Return null if validation passes
@@ -257,37 +248,35 @@ class _SignUpPageState extends State<SignUpPageDemo> {
                 const SizedBox(height: 10.0),
                 _isOTPGenerated
                     ? Column(
-                  children: [
-                    const SizedBox(height: 10.0),
-                    _buildAddressDetails(),
-                    const SizedBox(height: 10.0),
-                    _buildBankDetails(),
-                  ],
-                )
+                        children: [
+                          const SizedBox(height: 10.0),
+                          _buildAddressDetails(),
+                          const SizedBox(height: 10.0),
+                          _buildBankDetails(),
+                        ],
+                      )
                     : ElevatedButton(
-                  onPressed: _generateOTP,
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                      const Color(0xFF5cc7e7), // Button background color
-                    ),
-                    // textStyle: MaterialStateProperty.all<TextStyle>(
-                    //   TextStyle(
-                    //     color: Colors.white, // Text color
-                    //     fontWeight: FontWeight.bold, // Text bold
-                    //   ),
-                    // ),
-                  ),
-                  child: const Text(
-                    'Generate OTP',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      fontSize: 15.0,
-                    ),
-                  ),
-                ),
-
-
+                        onPressed: _generateOTP,
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                            const Color(0xFF5cc7e7), // Button background color
+                          ),
+                          // textStyle: MaterialStateProperty.all<TextStyle>(
+                          //   TextStyle(
+                          //     color: Colors.white, // Text color
+                          //     fontWeight: FontWeight.bold, // Text bold
+                          //   ),
+                          // ),
+                        ),
+                        child: const Text(
+                          'Generate OTP',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontSize: 15.0,
+                          ),
+                        ),
+                      ),
               ],
             ),
           ),
@@ -295,7 +284,6 @@ class _SignUpPageState extends State<SignUpPageDemo> {
       ),
     );
   }
-
 
   Widget _buildAddressDetails() {
     return Theme(
@@ -309,8 +297,7 @@ class _SignUpPageState extends State<SignUpPageDemo> {
           style: TextStyle(
               color: Color(0xFF0e5d97),
               fontSize: 20,
-              fontWeight:FontWeight.w500
-          ),
+              fontWeight: FontWeight.w500),
         ),
         onExpansionChanged: (value) {
           setState(() {
@@ -343,7 +330,8 @@ class _SignUpPageState extends State<SignUpPageDemo> {
             onChanged: (String? newValue) {
               setState(() {
                 _selectedState = newValue;
-                _fetchDistricts(newValue!); // Assuming _fetchDistricts requires a non-null argument
+                _fetchDistricts(
+                    newValue!); // Assuming _fetchDistricts requires a non-null argument
               });
             },
             validator: (value) {
@@ -357,10 +345,7 @@ class _SignUpPageState extends State<SignUpPageDemo> {
               border: OutlineInputBorder(),
             ),
           ),
-
           const SizedBox(height: 10.0),
-
-
           CustomDropdownField(
             label: 'District',
             options: _districts,
@@ -372,8 +357,6 @@ class _SignUpPageState extends State<SignUpPageDemo> {
                 _districtIndex = (selectedIndex + 1).toString();
               });
             },
-
-
           ),
           const SizedBox(height: 10.0),
           CustomTextField(
@@ -405,7 +388,6 @@ class _SignUpPageState extends State<SignUpPageDemo> {
               return null;
             },
           ),
-
           const SizedBox(height: 10.0),
           CustomTextField(
             label: 'Pincode',
@@ -413,7 +395,7 @@ class _SignUpPageState extends State<SignUpPageDemo> {
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter your Pincode'; // Validation error message
-              }else if (!RegExp(r'^\d{6}$').hasMatch(value)) {
+              } else if (!RegExp(r'^\d{6}$').hasMatch(value)) {
                 return 'Please enter a valid 6-digit Pincode';
               }
               return null; // Return null if validation passes
@@ -436,8 +418,7 @@ class _SignUpPageState extends State<SignUpPageDemo> {
           style: TextStyle(
               color: Color(0xFF0e5d97),
               fontSize: 20,
-              fontWeight:FontWeight.w500
-          ),
+              fontWeight: FontWeight.w500),
         ),
         onExpansionChanged: (value) {
           setState(() {
@@ -469,8 +450,7 @@ class _SignUpPageState extends State<SignUpPageDemo> {
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter your IFSC code'; // Validation error message
-              }
-              else if (!RegExp(r'^[A-Za-z]{4}\d{7}$').hasMatch(value)) {
+              } else if (!RegExp(r'^[A-Za-z]{4}\d{7}$').hasMatch(value)) {
                 return 'Please enter a valid IFSC code';
               }
               return null; // Return null if validation passes
@@ -498,7 +478,7 @@ class _SignUpPageState extends State<SignUpPageDemo> {
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter your account number'; // Validation error message
-              }else if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+              } else if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
                 return 'Please enter a valid account number';
               }
               return null; // Return null if validation passes
@@ -522,21 +502,24 @@ class _SignUpPageState extends State<SignUpPageDemo> {
           const SizedBox(height: 10.0),
           ElevatedButton(
             onPressed: () {
-              if (_formKey.currentState!.validate()) { // Check form validation
+              if (_formKey.currentState!.validate()) {
+                // Check form validation
                 _registerUser();
               }
             },
             style: ButtonStyle(
-              backgroundColor:
-              MaterialStateProperty.all<Color>(const Color(0xFF5cc7e7),),
+              backgroundColor: MaterialStateProperty.all<Color>(
+                const Color(0xFF5cc7e7),
+              ),
             ),
-            child: Text(_isOTPGenerated ? 'Register for Free' : 'Generate OTP',
+            child: Text(
+              _isOTPGenerated ? 'Register for Free' : 'Generate OTP',
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
                 fontSize: 15.0,
-              ),),
-
+              ),
+            ),
           ),
         ],
       ),
@@ -568,7 +551,6 @@ class _SignUpPageState extends State<SignUpPageDemo> {
     );
   }
 
-
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
@@ -580,28 +562,28 @@ class _SignUpPageState extends State<SignUpPageDemo> {
       print('Selected Date: $pickedDate');
 
       // Format the picked date as "dd-MMM-yyyy" for display to the user
-      String formattedDisplayDate = DateFormat('dd-MMM-yyyy').format(pickedDate);
+      String formattedDisplayDate =
+          DateFormat('dd-MMM-yyyy').format(pickedDate);
 
       // Convert the display date to API date format "yyyy-MM-dd"
       String formattedApiDate = convertToApiDateFormat(formattedDisplayDate);
 
       // Print the formatted dates
 
-
       setState(() {
-        _dobController.text = formattedDisplayDate; // Set the display date to the text field
+        _dobController.text =
+            formattedDisplayDate; // Set the display date to the text field
         _apiFormattedDate = formattedApiDate;
         // Use formattedApiDate for sending the date to the API
       });
     }
   }
+
   String _apiFormattedDate = '';
   String convertToApiDateFormat(String displayDate) {
     final DateTime parsedDate = DateFormat('dd-MMM-yyyy').parse(displayDate);
     return DateFormat('yyyy-MM-dd').format(parsedDate);
   }
-
-
 
   void _showReferrerPopup(String referrerUid) async {
     if (referrerUid.isNotEmpty && !_isDialogShown) {
@@ -624,13 +606,10 @@ class _SignUpPageState extends State<SignUpPageDemo> {
               _isDialogShown = true;
             });
           },
-
         )..show();
       }
     }
   }
-
-
 
   Future<void> _registerUser() async {
     String url = 'https://z2h.in:8000/api/z2h/user/register/';
@@ -684,7 +663,7 @@ class _SignUpPageState extends State<SignUpPageDemo> {
           );
         },
       )..show();
-    } else if(response.statusCode == 400) {
+    } else if (response.statusCode == 400) {
       // Show error dialog using Awesome Dialog
       AwesomeDialog(
         context: context,
@@ -694,32 +673,28 @@ class _SignUpPageState extends State<SignUpPageDemo> {
         desc: 'register user with this mobile number already exists.',
         btnOkOnPress: () {},
       )..show();
-    }else if(response.statusCode == 403) {
+    } else if (response.statusCode == 403) {
       // Show error dialog using Awesome Dialog
       AwesomeDialog(
         context: context,
         dialogType: DialogType.warning, // Set dialog type to error
         animType: AnimType.topSlide,
         title: 'Refer Id used already',
-        desc: 'You do not have permission to use this reffer ID because it is already exist',
+        desc:
+            'You do not have permission to use this reffer ID because it is already exist',
         btnOkOnPress: () {},
       )..show();
     }
   }
-
-
 }
 
 class APIService {
   static Future<List<String>> fetchStates() async {
-    
-    final response = await http
-        .get(Uri.parse('https://z2h.in:8000/api/z2h/utils/state/'));
+    final response =
+        await http.get(Uri.parse('https://z2h.in:8000/api/z2h/utils/state/'));
     if (response.statusCode == 200) {
-
       final List<dynamic> data = json.decode(response.body);
       return data.map((state) => state['name'] as String).toList();
-
     } else {
       throw Exception('Failed to load states');
     }

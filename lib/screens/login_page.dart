@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zero2hero/screens/signup.dart';
 import 'package:zero2hero/screens/signupDemo.dart';
 
+import '../dummy.dart';
 import '../token_provider.dart';
 import 'homepage.dart';
 import 'new_login.dart';
@@ -289,8 +290,8 @@ class LoginPageState extends State<LoginPage> {
                       }
                     },
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(customButtonColor),
-                      foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                      backgroundColor: WidgetStateProperty.all<Color>(customButtonColor),
+                      foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
                     ),
                     child: const Text(
                       'Login',
@@ -309,7 +310,7 @@ class LoginPageState extends State<LoginPage> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const SignUpPageDemo()),
+                            MaterialPageRoute(builder: (context) => const SignUpPageDemo1()),
                           );
                         },
                         child: const Text('Sign up'),

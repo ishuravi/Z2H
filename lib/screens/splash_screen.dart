@@ -72,7 +72,8 @@ class SplashScreenState extends State<SplashScreen>
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Color(0xFF003cd6),
+              Color(0xFF69e2f4),
+              Colors.white,
               Color(0xFF69e2f4),
             ],
           ),
@@ -86,7 +87,7 @@ class SplashScreenState extends State<SplashScreen>
                 child: SlideTransition(
                   position: _imageOffsetAnimation,
                   child: Center(
-                    child: Image.asset('assets/splash.png'), // Your splash screen image
+                    child: Image.asset('assets/icons/client_logo.png'), // Your splash screen image
                   ),
                 ),
               ),

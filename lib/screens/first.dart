@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:provider/provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:video_player/video_player.dart';
+import 'package:zero2hero/screens/ProductDetailsPage1.dart';
 
 import '../token_provider.dart';
 import 'ProductDetailsPage.dart';
@@ -198,7 +199,7 @@ class _FirstPageState extends State<FirstPage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => ProductDetailsPage(
+                                  builder: (context) => ProductDetailsPageDemo(
                                     imageUrls: productImageUrls,
                                     productName: product['name'].toString(),
                                     description: product['description'].toString(),
