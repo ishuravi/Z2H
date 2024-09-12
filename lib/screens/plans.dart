@@ -29,7 +29,7 @@ class PlansPageState extends State<PlansPage> {
   }
 
   Future<void> fetchData() async {
-    const url = 'https://z2h.in:8000/api/z2h/app/plan_details/';
+    const url = 'https://z2h.in/api/z2h/app/plan_details/';
     final response = await http.get(
       Uri.parse(url),
       headers: {

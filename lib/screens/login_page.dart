@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:zero2hero/screens/signup.dart';
 import 'package:zero2hero/screens/signupDemo.dart';
 
-import '../dummy.dart';
 import '../token_provider.dart';
 import 'homepage.dart';
 import 'new_login.dart';
@@ -37,39 +35,35 @@ class LoginPageState extends State<LoginPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          shape: RoundedRectangleBorder(
+          shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(0.0)), // Border radius
             //side: BorderSide(color: Colors.black, width: 2.0), // Border color and width
           ),
           backgroundColor: Colors.white,
 
-          title: Text("Forgot Password"),
-          content: Container(
-
-
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextFormField(
-                  controller: mobileController,
-                  keyboardType: TextInputType.phone,
-                  decoration: InputDecoration(labelText: 'Mobile Number'),
-                ),
-                SizedBox(height: 10.0),
-                TextFormField(
-                  controller: emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(labelText: 'Email Address'),
-                ),
-              ],
-            ),
+          title: const Text("Forgot Password"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextFormField(
+                controller: mobileController,
+                keyboardType: TextInputType.phone,
+                decoration: const InputDecoration(labelText: 'Mobile Number'),
+              ),
+              const SizedBox(height: 10.0),
+              TextFormField(
+                controller: emailController,
+                keyboardType: TextInputType.emailAddress,
+                decoration: const InputDecoration(labelText: 'Email Address'),
+              ),
+            ],
           ),
           actions: <Widget>[
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
             ),
             TextButton(
               onPressed: () {
@@ -79,7 +73,7 @@ class LoginPageState extends State<LoginPage> {
                 _forgotPassword(mobileNumber, emailAddress);
                 Navigator.of(context).pop();
               },
-              child: Text('Submit'),
+              child: const Text('Submit'),
             ),
           ],
         );
@@ -87,7 +81,7 @@ class LoginPageState extends State<LoginPage> {
     );
   }
   Future<void> _forgotPassword(String mobileNumber, String emailAddress) async {
-    final String apiUrl = 'https://z2h.in:8000/api/z2h/user/forgot_password/';
+    const String apiUrl = 'https://z2h.in/api/z2h/user/forgot_password/';
     final Uri uri = Uri.parse('$apiUrl?email_address=$emailAddress&mobile_number=$mobileNumber');
 
     final response = await http.get(uri);
@@ -114,13 +108,14 @@ class LoginPageState extends State<LoginPage> {
       _rememberMe = prefs.getBool('rememberMe') ?? false;
       if (_rememberMe) {
         _mobileController.text = prefs.getString('mobileNumber') ?? '';
+        _passwordController.text = prefs.getString('password') ?? '';
       }
     });
   }
 
 
   Future<void> _login() async {
-    const String apiUrl = 'https://z2h.in:8000/api/z2h/user/login/';
+    const String apiUrl = 'https://z2h.in/api/z2h/user/login/';
     final response = await http.post(Uri.parse(apiUrl), body: {
       'mobile_number': _mobileController.text,
       'password': _passwordController.text,
@@ -139,11 +134,13 @@ class LoginPageState extends State<LoginPage> {
         if (_rememberMe) {
           await prefs.setBool('rememberMe', true);
           await prefs.setString('mobileNumber', _mobileController.text);
+          await prefs.setString('password', _passwordController.text);
 
 
         } else {
           await prefs.remove('rememberMe');
           await prefs.remove('mobileNumber');
+          await prefs.remove('password');
 
 
         }

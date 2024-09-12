@@ -35,7 +35,7 @@ class _ProductsPageState extends State<ProductsPage> {
   }
 
   Future<void> fetchProducts() async {
-    const url = 'https://z2h.in:8000/api/z2h/app/product_categories/';
+    const url = 'https://z2h.in/api/z2h/app/product_categories/';
     final response = await http.get(
       Uri.parse(url),
       headers: {

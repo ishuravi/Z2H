@@ -14,7 +14,7 @@ class Details extends StatefulWidget {
 }
 
 class _DetailsState extends State<Details> {
-  final String apiUrl = 'https://z2h.in:8000/api/z2h/user/info/?accessed_from=mobile';
+  final String apiUrl = 'https://z2h.in/api/z2h/user/info/?accessed_from=mobile';
 
   @override
   void initState() {
@@ -47,10 +47,10 @@ class _DetailsState extends State<Details> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Details page"),
+        title: const Text("Details page"),
       ),
       body: userInfo.isEmpty
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView(

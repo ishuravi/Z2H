@@ -39,7 +39,7 @@ class _SettingsState extends State<Settings> {
               ),
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.only(top: 200),
             child: ElevatedButton(
@@ -55,7 +55,7 @@ class _SettingsState extends State<Settings> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFFaaffff),
+                backgroundColor: const Color(0xFFaaffff),
               ),
               child: const Text(
                 'Update password',

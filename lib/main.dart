@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:zero2hero/screens/userProvider.dart';
 
+import 'Notification provider.dart';
 import 'screens/splash_screen.dart'; // Importing SplashScreen widget
-import 'screens/signup.dart';
+import 'screens/signupDemo.dart';
 import 'token_provider.dart'; // Import TokenProvider
 
 void main() {
@@ -12,6 +13,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => TokenProvider()),
         ChangeNotifierProvider(create: (_) => UserProvider()),
+        ChangeNotifierProvider(create: (_) => NotificationsProvider()),
 
         // Add other providers as needed
       ],
@@ -30,7 +32,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/', // Set initial route to SplashScreen
       routes: {
         '/': (context) => const SplashScreen(),
-        '/signup': (context) => const SignUpPageDemo(),
+        '/signup': (context) => const SignUpPageDemo1(),
       },
     );
   }

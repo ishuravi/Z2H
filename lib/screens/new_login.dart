@@ -8,7 +8,7 @@ import 'login_page.dart';
 class NewLogin extends StatefulWidget {
   final String token; // Add token as a parameter
 
-  NewLogin(this.token, {Key? key}) : super(key: key);
+  const NewLogin(this.token, {Key? key}) : super(key: key);
 
   @override
   _NewLoginState createState() => _NewLoginState();
@@ -77,7 +77,7 @@ class _NewLoginState extends State<NewLogin> {
 
     http.Response response = await http.patch(
       Uri.parse(
-          'https://z2h.in:8000/api/z2h/user/update_password/'),
+          'https://z2h.in/api/z2h/user/update_password/'),
       headers: headers,
       body: json.encode(requestBody),
     );
@@ -99,7 +99,7 @@ class _NewLoginState extends State<NewLogin> {
         ),
             (_) => false,
       );},
-    )..show();
+    ).show();
   }
 
   void _showSkipDialog(BuildContext context) {
@@ -110,7 +110,7 @@ class _NewLoginState extends State<NewLogin> {
       title: 'Information',
       desc: 'You can change the password later under your setting option.',
       btnOkOnPress: () {},
-    )..show();
+    ).show();
   }
 
   @override
@@ -127,7 +127,7 @@ class _NewLoginState extends State<NewLogin> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      margin: EdgeInsets.only(bottom: 20.0),
+                      margin: const EdgeInsets.only(bottom: 20.0),
                       child: Image.asset(
                         'assets/icons/client_logo.png',
                         width: 200,
@@ -224,7 +224,7 @@ class _NewLoginState extends State<NewLogin> {
                       },
                       style: ButtonStyle(
                         backgroundColor:
-                        MaterialStateProperty.all<Color>(Color(0xFF5cc7e7)),
+                        WidgetStateProperty.all<Color>(const Color(0xFF5cc7e7)),
                       ),
                       child: const Text(
                         'Submit',
@@ -244,7 +244,7 @@ class _NewLoginState extends State<NewLogin> {
             top: 60,
             right: 20,
             child: Container(
-              padding: EdgeInsets.all(5.0),
+              padding: const EdgeInsets.all(5.0),
               decoration: BoxDecoration(
                 color: Colors.blue.withOpacity(0.5), // Blue transparent background
                 borderRadius: BorderRadius.circular(50.0),
@@ -253,7 +253,7 @@ class _NewLoginState extends State<NewLogin> {
                 onPressed: () {
                   _showSkipDialog(context);
                 },
-                child: Text(
+                child: const Text(
                   'Do it later',
                   style: TextStyle(
                     color: Colors.white,

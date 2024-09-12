@@ -29,7 +29,7 @@ class _PaymentHistoryState extends State<PaymentHistory> {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     final customerUid = userProvider.userInfo['user_customer_uid'] ?? '';
     final response = await http.get(
-      Uri.parse('https://z2h.in:8000/api/z2h/user/customer/customer_details/?customer_uid=$customerUid'),
+      Uri.parse('https://z2h.in/api/z2h/user/customer/customer_details/?customer_uid=$customerUid'),
       headers: {
         'Authorization': 'Token $token', // Replace with your token provider logic
       },
@@ -48,7 +48,7 @@ class _PaymentHistoryState extends State<PaymentHistory> {
         isLoading = false;
       });
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to load order details')),
+        const SnackBar(content: Text('Failed to load order details')),
       );
     }
   }
@@ -93,7 +93,7 @@ class _PaymentHistoryState extends State<PaymentHistory> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 130.0,
-        backgroundColor: Color(0xFFDCFFFF),
+        backgroundColor: const Color(0xFFDCFFFF),
         automaticallyImplyLeading: false,
         title: Center(
           child: Image.asset(
@@ -104,7 +104,7 @@ class _PaymentHistoryState extends State<PaymentHistory> {
           ),
         ),
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(4.0),
+          preferredSize: const Size.fromHeight(4.0),
           child: Container(
             color: Colors.blue,
             height: 4.0,
@@ -112,9 +112,9 @@ class _PaymentHistoryState extends State<PaymentHistory> {
         ),
       ),
       body: isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : orderDetails.isEmpty
-          ? Center(child: Text('No records found'))
+          ? const Center(child: Text('No records found'))
           : ListView.builder(
         itemCount: orderDetails.length,
         itemBuilder: (context, index) {

@@ -18,6 +18,7 @@ class _EditProfileState extends State<EditProfile> {
 
   final TextEditingController addressController = TextEditingController();
   final TextEditingController maritalStatusController = TextEditingController();
+  final TextEditingController panNumberController = TextEditingController();
   //final TextEditingController aadharNumberController = TextEditingController();
   final TextEditingController cityController = TextEditingController();
   final TextEditingController townController = TextEditingController();
@@ -28,6 +29,7 @@ class _EditProfileState extends State<EditProfile> {
   final TextEditingController bankBranchController = TextEditingController();
   final TextEditingController accountNumberController = TextEditingController();
 
+
   @override
   void initState() {
     super.initState();
@@ -35,7 +37,7 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   Future<UserData> fetchUserData() async {
-    const String apiUrl = 'https://z2h.in:8000/api/z2h/user/update_register_user/';
+    const String apiUrl = 'https://z2h.in/api/z2h/user/update_register_user/';
     final tokenProvider = Provider.of<TokenProvider>(context, listen: false);
     final token = tokenProvider.token;
 
@@ -53,6 +55,10 @@ class _EditProfileState extends State<EditProfile> {
       // Initialize controllers with the fetched data
       addressController.text = userData.address;
       maritalStatusController.text = userData.maritalStatus;
+      if (userData.pan != null) {
+        panNumberController.text = userData.pan!;
+      }
+      //panNumberController.text = userData.pan!;
     //  aadharNumberController.text = userData.aadharNumber;
       cityController.text = userData.city;
       townController.text = userData.town;
@@ -63,6 +69,7 @@ class _EditProfileState extends State<EditProfile> {
       bankBranchController.text = userData.bankBranch;
       accountNumberController.text = userData.accountNumber;
 
+
       return userData;
     } else {
       throw Exception('Failed to load user data');
@@ -70,7 +77,7 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   Future<void> updateUserData() async {
-    const String apiUrl = 'https://z2h.in:8000/api/z2h/user/update_register_user/';
+    const String apiUrl = 'https://z2h.in/api/z2h/user/update_register_user/';
     final tokenProvider = Provider.of<TokenProvider>(context, listen: false);
     final token = tokenProvider.token;
 
@@ -83,6 +90,7 @@ class _EditProfileState extends State<EditProfile> {
       body: json.encode({
         'address': addressController.text,
         'marital_status': maritalStatusController.text,
+        'pan':panNumberController.text,
        // 'aadhar_number': aadharNumberController.text,
         'city': cityController.text,
         'town': townController.text,
@@ -92,6 +100,7 @@ class _EditProfileState extends State<EditProfile> {
         'ifsc_code': ifscCodeController.text,
         'bank_branch': bankBranchController.text,
         'account_number': accountNumberController.text,
+        //'pan_number': panNumberController.text,
         // Add other fields similarly if needed
       }),
     );
@@ -99,18 +108,18 @@ class _EditProfileState extends State<EditProfile> {
     if (response.statusCode == 200) {
       // Handle successful update
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Profile updated successfully')),
+        const SnackBar(content: Text('Profile updated successfully')),
       );
 
       // Navigate to the profile page
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => ProfileDemo1()),
+        MaterialPageRoute(builder: (context) => const ProfileDemo1()),
       );
     } else {
       // Handle error
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to update profile')),
+        const SnackBar(content: Text('Failed to update profile')),
       );
     }
   }
@@ -119,17 +128,17 @@ class _EditProfileState extends State<EditProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Profile'),
+        title: const Text('Edit Profile'),
       ),
       body: FutureBuilder<UserData>(
         future: futureUserData,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (!snapshot.hasData) {
-            return Center(child: Text('No user data found.'));
+            return const Center(child: Text('No user data found.'));
           } else {
             return Padding(
               padding: const EdgeInsets.all(16.0),
@@ -146,12 +155,17 @@ class _EditProfileState extends State<EditProfile> {
                   _buildTextField('IFSC Code', ifscCodeController),
                   _buildTextField('Bank Branch', bankBranchController),
                   _buildTextField('Account Number', accountNumberController),
+                  _buildTextField('Pan Number', panNumberController),
                   // Add other fields similarly
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: updateUserData,
-                    child: Text('Update'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green, // Background color
+                    ),
+                    child: const Text('Update',style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold),),
                   ),
+
                 ],
               ),
             );
@@ -198,6 +212,7 @@ class UserData {
   final String ifscCode;
   final String bankBranch;
   final String accountNumber;
+  //final String pan;
   final String? alternateMobileNumber;
   final String? profilePhotoPath;
 
@@ -215,6 +230,8 @@ class UserData {
     required this.ifscCode,
     required this.bankBranch,
     required this.accountNumber,
+
+   // required this.panNumber,
     this.alternateMobileNumber,
     this.profilePhotoPath,
   });
@@ -234,6 +251,7 @@ class UserData {
       ifscCode: json['ifsc_code'],
       bankBranch: json['bank_branch'],
       accountNumber: json['account_number'],
+      //panNumber: json['pan_number'],
       alternateMobileNumber: json['alternate_mobile_number'],
       profilePhotoPath: json['profile_photo_path'],
     );

@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+// import 'package:carousel_slider/carousel_slider.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -161,7 +161,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
             context: context,
             dialogType: DialogType.error,
             animType: AnimType.bottomSlide,
-            desc: 'Payment failed. Please try again.',
+            desc: 'Already done with the payment!',
             btnOkOnPress: () {
               Navigator.push(
                 context,
@@ -181,7 +181,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
     final uid = tokenProvider.uid;
     print("Product details page token:$token");
     print("Product details page uid:$uid");
-    final url = Uri.parse('https://z2h.in:8000/api/z2h/app/update_payment/');
+    final url = Uri.parse('https://z2h.in/api/z2h/app/update_payment/');
     final headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Token $token',
@@ -201,7 +201,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 80.0,
-        backgroundColor: Color(0xFFDCFFFF),
+        backgroundColor: const Color(0xFFDCFFFF),
         automaticallyImplyLeading: false,
         title: Center(
           child: Image.asset(
@@ -220,24 +220,24 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               color: Colors.white,
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
-                child: CarouselSlider(
-                  items: widget.imageUrls.map((url) {
-                    return Image.network(
-                      url,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Text('Error loading image');
-                      },
-                    );
-                  }).toList(),
-                  options: CarouselOptions(
-                    height: 300,
-                    aspectRatio: 16 / 9,
-                    viewportFraction: 1.5,
-                    autoPlay: true,
-                    enlargeCenterPage: true,
-                  ),
-                ),
+                // child: CarouselSlider(
+                //   items: widget.imageUrls.map((url) {
+                //     return Image.network(
+                //       url,
+                //       fit: BoxFit.cover,
+                //       errorBuilder: (context, error, stackTrace) {
+                //         return const Text('Error loading image');
+                //       },
+                //     );
+                //   }).toList(),
+                //   options: CarouselOptions(
+                //     height: 300,
+                //     aspectRatio: 16 / 9,
+                //     viewportFraction: 1.5,
+                //     autoPlay: true,
+                //     enlargeCenterPage: true,
+                //   ),
+                // ),
               ),
             ),
             Padding(

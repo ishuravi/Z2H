@@ -17,13 +17,13 @@ class SignUpPageDemo1 extends StatefulWidget {
 
 class _SignUpPageDemo1State extends State<SignUpPageDemo1> {
 
-  String? userAccessToken;
-  String? jwtUserToken;
-  bool hasUserLogin = false;
-  PhoneEmailUserModel? phoneEmailUserModel;
+  // String? userAccessToken;
+  // String? jwtUserToken;
+  // bool hasUserLogin = false;
+  // PhoneEmailUserModel? phoneEmailUserModel;
 
-  final String stateAPIUrl = 'https://z2h.in:8000/api/z2h/utils/state/';
-  final String districtAPIUrl = 'https://z2h.in:8000/api/z2h/utils/district/';
+  final String stateAPIUrl = 'https://z2h.in/api/z2h/utils/state/';
+  final String districtAPIUrl = 'https://z2h.in/api/z2h/utils/district/';
   List<Map<String, dynamic>> states = []; // List to store states
   List<Map<String, dynamic>> districts = []; // List to store districts
   final _formKey = GlobalKey<FormState>();
@@ -58,24 +58,24 @@ class _SignUpPageDemo1State extends State<SignUpPageDemo1> {
   void initState() {
     super.initState();
     fetchStates(); // Fetch states on initialization
-    PhoneEmail.initializeApp(clientId: '16995501200085907886');
+    //PhoneEmail.initializeApp(clientId: '16995501200085907886');
   }
-  void getUserInfo() {
-    if (userAccessToken != null) {
-      PhoneEmail.getUserInfo(
-        accessToken: userAccessToken!,
-        clientId: '16995501200085907886',
-        onSuccess: (userData) {
-          setState(() {
-            phoneEmailUserModel = userData;
-            var countryCode = phoneEmailUserModel?.countryCode;
-            var phoneNumber = phoneEmailUserModel?.phoneNumber;
-            // Use this verified phone number to register user and create your session
-          });
-        },
-      );
-    }
-  }
+  // void getUserInfo() {
+  //   if (userAccessToken != null) {
+  //     PhoneEmail.getUserInfo(
+  //       accessToken: userAccessToken!,
+  //       clientId: '16995501200085907886',
+  //       onSuccess: (userData) {
+  //         setState(() {
+  //           phoneEmailUserModel = userData;
+  //           var countryCode = phoneEmailUserModel?.countryCode;
+  //           var phoneNumber = phoneEmailUserModel?.phoneNumber;
+  //           // Use this verified phone number to register user and create your session
+  //         });
+  //       },
+  //     );
+  //   }
+  // }
 
   Future<void> fetchDistricts(String? stateUid) async {
     if (stateUid == null) return; // Return if state UID is null
@@ -94,7 +94,7 @@ class _SignUpPageDemo1State extends State<SignUpPageDemo1> {
   }
 
   Future<void> _registerUser() async {
-    String url = 'https://z2h.in:8000/api/z2h/user/register/';
+    String url = 'https://z2h.in/api/z2h/user/register/';
     int districtIndex = districts.indexWhere((district) => district['name'] == _selectedDistrict);
 
     var payload = {
@@ -105,7 +105,8 @@ class _SignUpPageDemo1State extends State<SignUpPageDemo1> {
       "date_of_birth": _apiFormattedDate,
       "gender": _selectedGender?.toLowerCase(),
       "aadhar_number": aadharController.text,
-      "mobile_number": phoneEmailUserModel!.phoneNumber,
+      "mobile_number": mobileController.text,
+      // "mobile_number": phoneEmailUserModel!.phoneNumber,
       "pin_code": pincodeController.text,
       "name_of_bank": bankNameController.text,
       "name_as_in_bank": accountNameController.text,
@@ -118,6 +119,7 @@ class _SignUpPageDemo1State extends State<SignUpPageDemo1> {
       "town": townController.text,
       "address": addressController.text,
       "email_address": emailController.text,
+      "pan": panController.text,
     };
 
     print('payload: $payload');
@@ -155,8 +157,8 @@ class _SignUpPageDemo1State extends State<SignUpPageDemo1> {
         context: context,
         dialogType: DialogType.warning, // Set dialog type to error
         animType: AnimType.topSlide,
-        title: 'Enter another mobile number',
-        desc: 'register user with this mobile number already exists.',
+        title: 'Name or Mobile number already exist',
+        desc: 'register user with this mobile number or name already exists.Try another one',
         btnOkOnPress: () {},
       )..show();
     } else if (response.statusCode == 403) {
@@ -181,6 +183,7 @@ class _SignUpPageDemo1State extends State<SignUpPageDemo1> {
   TextEditingController maritalStatusController = TextEditingController();
   TextEditingController genderController = TextEditingController();
   TextEditingController aadharController = TextEditingController();
+  TextEditingController panController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController stateController = TextEditingController();
@@ -327,6 +330,24 @@ class _SignUpPageDemo1State extends State<SignUpPageDemo1> {
               ),
               const SizedBox(height: 8),
               CustomTextField(
+                key: Key('pan number'),
+                label: 'Pan Number (optional)',
+                controller: panController,
+                keyboardType: TextInputType.text,
+                maxLength: 12,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your Pan Number';
+                  } else if (!RegExp(r'^[A-Z]{5}[0-9]{4}[A-Z]{1}$').hasMatch(value)) {
+                    return 'Please enter a valid Pan Number';
+                  }
+                  return null;
+                },
+                onChanged: (value) => setState(() {}),
+              ),
+              const SizedBox(height: 8),
+              CustomTextField(
+                key: Key('Aadhar number'),
                 label: 'Aadhar Number',
                 controller: aadharController,
                 keyboardType: TextInputType.number,
@@ -342,43 +363,43 @@ class _SignUpPageDemo1State extends State<SignUpPageDemo1> {
                 onChanged: (value) => setState(() {}),
               ),
               const SizedBox(height: 8),
-              // CustomTextField(
-              //   label: 'Mobile Number',
-              //   controller: mobileController,
-              //   keyboardType: TextInputType.phone,
-              //   maxLength: 10,
-              //   validator: (value) {
-              //     if (value == null || value.isEmpty) {
-              //       return 'Please enter your mobile number';
-              //     } else if (!RegExp(r'^[6-9]\d{9}$').hasMatch(value)) {
-              //       return 'Please enter a valid 10-digit mobile number';
-              //     }
-              //     return null;
-              //   },
-              //   onChanged: (value) => setState(() {}),
-              // ),
+              CustomTextField(
+                label: 'Mobile Number',
+                controller: mobileController,
+                keyboardType: TextInputType.phone,
+                maxLength: 10,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your mobile number';
+                  } else if (!RegExp(r'^[6-9]\d{9}$').hasMatch(value)) {
+                    return 'Please enter a valid 10-digit mobile number';
+                  }
+                  return null;
+                },
+                onChanged: (value) => setState(() {}),
+              ),
               const SizedBox(height: 8),
               Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    if (!hasUserLogin)
-                      PhoneLoginButton(
-                        borderRadius: 10,
-                        buttonColor: Colors.teal,
-                        label: 'Verify OTP',
-                        onSuccess: (String accessToken, String jwtToken) {
-                          if (accessToken.isNotEmpty) {
-                            setState(() {
-                              userAccessToken = accessToken;
-                              jwtUserToken = jwtToken;
-                              hasUserLogin = true;
-                            });
-                            getUserInfo();
-                          }
-                        },
-                      )
-                    else
+                    // if (!hasUserLogin)
+                    //   PhoneLoginButton(
+                    //     borderRadius: 10,
+                    //     buttonColor: Colors.teal,
+                    //     label: 'Verify OTP',
+                    //     onSuccess: (String accessToken, String jwtToken) {
+                    //       if (accessToken.isNotEmpty) {
+                    //         setState(() {
+                    //           userAccessToken = accessToken;
+                    //           jwtUserToken = jwtToken;
+                    //           hasUserLogin = true;
+                    //         });
+                    //         getUserInfo();
+                    //       }
+                    //     },
+                    //   )
+                    // else
                       ElevatedButton(
                         onPressed: _checkUserDetailsCompletion()
                             ? () {
@@ -395,11 +416,11 @@ class _SignUpPageDemo1State extends State<SignUpPageDemo1> {
                           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
                         ),
                       ),
-                    if (hasUserLogin) ...[
-                      Text('Mobile Number Verified successfully'),
-                      if (phoneEmailUserModel != null)
-                        Text('Phone Number: ${phoneEmailUserModel!.phoneNumber}')
-                    ]
+                    // if (hasUserLogin) ...[
+                    //   Text('Mobile Number Verified successfully'),
+                    //   if (phoneEmailUserModel != null)
+                    //     Text('Phone Number: ${phoneEmailUserModel!.phoneNumber}')
+                    // ]
                   ],
                 ),
               )
@@ -678,7 +699,7 @@ class _SignUpPageDemo1State extends State<SignUpPageDemo1> {
   void _showReferrerPopup(String referrerUid) async {
     if (referrerUid.isNotEmpty) {
       String referrerApiUrl =
-          'https://z2h.in:8000/api/z2h/user/validate_referrer/?referrer_uid=$referrerUid';
+          'https://z2h.in/api/z2h/user/validate_referrer/?referrer_uid=$referrerUid';
       var referrerResponse = await http.get(Uri.parse(referrerApiUrl));
       if (referrerResponse.statusCode == 200) {
         var referrerData = jsonDecode(referrerResponse.body);

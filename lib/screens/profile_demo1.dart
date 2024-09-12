@@ -43,21 +43,21 @@ class _ProfileDemoState extends State<ProfileDemo1> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('UID:  ${userInfo['referrer_uid'] ?? 'Not specified'}', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
-                SizedBox(height: 20),
-                Text('Name:  ${userInfo['referrer_name'] ?? 'Not specified'}', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
-                SizedBox(height: 20),
-                Text('City:  ${userInfo['referrer_city'] ?? 'Not specified'}', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
-                SizedBox(height: 20),
-                Text('Town:  ${userInfo['referrer_town'] ?? 'Not specified'}', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
-                SizedBox(height: 20),
-                Text('Mobile:  ${userInfo['referrer_mobile_number'] ?? 'Not specified'}', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                Text('UID:  ${userInfo['referrer_uid'] ?? 'Not specified'}', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                const SizedBox(height: 20),
+                Text('Name:  ${userInfo['referrer_name'] ?? 'Not specified'}', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                const SizedBox(height: 20),
+                Text('City:  ${userInfo['referrer_city'] ?? 'Not specified'}', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                const SizedBox(height: 20),
+                Text('Town:  ${userInfo['referrer_town'] ?? 'Not specified'}', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                const SizedBox(height: 20),
+                Text('Mobile:  ${userInfo['referrer_mobile_number'] ?? 'Not specified'}', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
               ],
             ),
           ),
           actions: [
             TextButton(
-              child: Text('Close'),
+              child: const Text('Close'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -79,17 +79,17 @@ class _ProfileDemoState extends State<ProfileDemo1> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('${userInfo['user_customer_number'] ?? 'Not specified'}', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                Text('${userInfo['user_customer_number'] ?? 'Not specified'}', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
               ],
             ),
           ),
           actions: [
             TextButton(
-              child: Text('Copy'),
+              child: const Text('Copy'),
               onPressed: () {
                 Clipboard.setData(ClipboardData(text: userInfo['user_customer_number'] ?? ''));
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Referral ID copied to clipboard')),
+                  const SnackBar(content: Text('Referral ID copied to clipboard')),
                 );
                 Navigator.of(context).pop();
               },
@@ -118,7 +118,7 @@ class _ProfileDemoState extends State<ProfileDemo1> {
 
     final request = http.MultipartRequest(
       'POST',
-      Uri.parse('https://z2h.in:8000/api/z2h/utils/image_upload/'),
+      Uri.parse('https://z2h.in/api/z2h/utils/image_upload/'),
     );
     request.headers['Authorization'] = 'Token $token';
     request.fields['upload_type'] = 'profile_image';
@@ -131,14 +131,14 @@ class _ProfileDemoState extends State<ProfileDemo1> {
 
       final imagePath = jsonResponse['image_upload_path'];
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Image uploaded successfully')),
+        const SnackBar(content: Text('Image uploaded successfully')),
       );
 
       // Now send the imagePath to the update_register_user endpoint
       await _updateUserProfile(imagePath);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to upload image')),
+        const SnackBar(content: Text('Failed to upload image')),
       );
     }
   }
@@ -148,7 +148,7 @@ class _ProfileDemoState extends State<ProfileDemo1> {
     final token = tokenProvider.token;
 
     final response = await http.post(
-      Uri.parse('https://z2h.in:8000/api/z2h/user/update_register_user/'),
+      Uri.parse('https://z2h.in/api/z2h/user/update_register_user/'),
       headers: {
         'Authorization': 'Token $token',
         'Content-Type': 'application/json',
@@ -160,11 +160,11 @@ class _ProfileDemoState extends State<ProfileDemo1> {
 
     if (response.statusCode == 200) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('User profile updated successfully')),
+        const SnackBar(content: Text('User profile updated successfully')),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to update user profile')),
+        const SnackBar(content: Text('Failed to update user profile')),
       );
     }
   }
@@ -177,13 +177,13 @@ class _ProfileDemoState extends State<ProfileDemo1> {
     String? profilePhotoPath = userInfo['profile_photo_path'] as String?;
     return Scaffold(
       body: isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Container(
-            decoration: const BoxDecoration(
-              color: Color(0xFF32d0fc),
+            decoration:  BoxDecoration(
+              color: Colors.blue[900],
               borderRadius: BorderRadius.only(
                 bottomRight: Radius.circular(0.0),
                 bottomLeft: Radius.circular(0.0),
@@ -240,7 +240,7 @@ class _ProfileDemoState extends State<ProfileDemo1> {
                     Row(
                       children: [
                         Icon(Icons.person, color: Colors.blue[900]),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         Text(
                           '${userInfo['name']}',
                           style: TextStyle(
@@ -260,7 +260,7 @@ class _ProfileDemoState extends State<ProfileDemo1> {
                             case 'edit_profile':
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => EditProfile()),
+                                MaterialPageRoute(builder: (context) => const EditProfile()),
                               );
                               break;
                             case 'referral_details':
@@ -294,7 +294,7 @@ class _ProfileDemoState extends State<ProfileDemo1> {
                             ),
                           ),
                         ],
-                        child: CircleAvatar(
+                        child: const CircleAvatar(
                           radius: 25,
                           backgroundColor: Colors.black,
                           child: Icon(
@@ -313,7 +313,7 @@ class _ProfileDemoState extends State<ProfileDemo1> {
                     Row(
                       children: [
                         Icon(Icons.email, color: Colors.blue[900]),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         Text(
                           '${userInfo['email_address']}',
                           style: TextStyle(
@@ -326,14 +326,14 @@ class _ProfileDemoState extends State<ProfileDemo1> {
                     ),
                   ],
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
                       children: [
                         Icon(Icons.phone, color: Colors.blue[900]),
-                        SizedBox(width: 8),
+                        const SizedBox(width: 8),
                         Text(
                           '${userInfo['mobile_number']}',
                           style: TextStyle(
@@ -346,7 +346,7 @@ class _ProfileDemoState extends State<ProfileDemo1> {
                     ),
                   ],
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
               ],
             ),
           ),
@@ -368,6 +368,7 @@ class _ProfileDemoState extends State<ProfileDemo1> {
                 buildUserDetailTile('IFSC code', userInfo['ifsc_code']),
                 buildUserDetailTile('Branch', userInfo['bank_branch']),
                 buildUserDetailTile('Account Number', userInfo['account_number']),
+                buildUserDetailTile('Pan Number', userInfo['pan']),
               ],
             ),
           ),
@@ -380,11 +381,11 @@ class _ProfileDemoState extends State<ProfileDemo1> {
     return ListTile(
       title: Text(
         title,
-        style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
+        style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
       ),
       subtitle: Text(
         detail ?? 'Not specified',
-        style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+        style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
       ),
     );
   }

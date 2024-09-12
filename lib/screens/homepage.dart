@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:zero2hero/screens/Friends.dart';
+import 'package:zero2hero/screens/Friends1.dart';
 import 'DrawerPage.dart';
 import 'first.dart';
 
@@ -33,7 +34,7 @@ class MyHomePageState extends State<MyHomePage> {
         key: _FriendsKey,
         onGenerateRoute: (routeSettings) {
           return MaterialPageRoute(
-            builder: (context) => Friends(onTabChanged: _handleTabChanged),
+            builder: (context) => FriendsDemo(onTabChanged: _handleTabChanged),
           );
         },
       ),
@@ -53,20 +54,20 @@ class MyHomePageState extends State<MyHomePage> {
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.home),
         title: ("Home"),
-        activeColorPrimary:Color(0xFF007dfe),
-        inactiveColorPrimary: Color(0xFF007dfe),
+        activeColorPrimary:const Color(0xFF007dfe),
+        inactiveColorPrimary: const Color(0xFF007dfe),
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.group_add),
         title: ("Friends"),
-        activeColorPrimary: Color(0xFF007dfe),
-        inactiveColorPrimary:Color(0xFF007dfe),
+        activeColorPrimary: const Color(0xFF007dfe),
+        inactiveColorPrimary:const Color(0xFF007dfe),
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.menu_outlined),
         title: ("Menu"),
-        activeColorPrimary: Color(0xFF007dfe),
-        inactiveColorPrimary: Color(0xFF007dfe),
+        activeColorPrimary: const Color(0xFF007dfe),
+        inactiveColorPrimary: const Color(0xFF007dfe),
       ),
     ];
   }
@@ -100,7 +101,7 @@ class MyHomePageState extends State<MyHomePage> {
           screens: _navScreens(),
           items: _navBarsItems(),
           confineInSafeArea: true,
-          backgroundColor: Color(0xFFDCFFFF),
+          backgroundColor: const Color(0xFFDCFFFF),
           handleAndroidBackButtonPress: true,
           resizeToAvoidBottomInset: true,
           hideNavigationBarWhenKeyboardShows: true,

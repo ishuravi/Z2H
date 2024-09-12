@@ -8,6 +8,7 @@ import 'package:zero2hero/screens/settings.dart';
 import 'dart:convert';
 
 import '../token_provider.dart';
+import 'Notifications.dart';
 import 'login_page.dart';
 
 class DrawerPage extends StatefulWidget {
@@ -32,7 +33,7 @@ class _DrawerPageState extends State<DrawerPage> {
     final tokenProvider = Provider.of<TokenProvider>(context, listen: false);
     final token = tokenProvider.token;
     final url =
-        'https://z2h.in:8000/api/z2h/user/info/?accessed_from=mobile';
+        'https://z2h.in/api/z2h/user/info/?accessed_from=mobile';
 
     final response = await http.get(Uri.parse(url), headers: {
       'Authorization': 'Token $token',
@@ -65,8 +66,8 @@ class _DrawerPageState extends State<DrawerPage> {
             Container(
               height: 250,
               child: DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Color(0xFF32d0fc),
+                decoration:  BoxDecoration(
+                  color: Colors.blue[900],
                 ),
                 child: GestureDetector(
                   onTap: _refreshPage,
@@ -76,7 +77,7 @@ class _DrawerPageState extends State<DrawerPage> {
                       backgroundColor: Colors.white,
                       backgroundImage: profilePhotoPath != null ? NetworkImage(profilePhotoPath!) : null, // Placeholder image
                       child: profilePhotoPath == null
-                          ? Icon(Icons.person, size: 40)
+                          ? const Icon(Icons.person, size: 40)
                           : null,
                     ),
                   ),
@@ -96,7 +97,7 @@ class _DrawerPageState extends State<DrawerPage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ProfileDemo1()),
+                  MaterialPageRoute(builder: (context) => const ProfileDemo1()),
                 );
               },
             ),
@@ -106,7 +107,7 @@ class _DrawerPageState extends State<DrawerPage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Settings()),
+                  MaterialPageRoute(builder: (context) => const Settings()),
                 );
               },
             ),
@@ -116,7 +117,7 @@ class _DrawerPageState extends State<DrawerPage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Details()),
+                  MaterialPageRoute(builder: (context) => Notifications()),
                 );// Handle notifications navigation
               },
             ),
@@ -126,7 +127,7 @@ class _DrawerPageState extends State<DrawerPage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) =>PaymentHistory()),
+                  MaterialPageRoute(builder: (context) =>const PaymentHistory()),
                 );
                 // onTabChanged(1);
               },
